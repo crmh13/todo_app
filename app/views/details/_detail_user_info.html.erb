@@ -1,0 +1,10 @@
+<aside class="user_info">
+  <%= render 'shared/user_info' %>
+  <p>総作業数 ： <%= @details_count.count %></p>
+  <p>未作業 ： <%= @not_work_data %></p>
+  <p>作業中 ： <%= @working_data %></p>
+  <p>完了 ： <%= @complete_data %></p>
+  <%= link_to 'タスク情報更新', edit_task_path(@task) %>
+  <%= link_to 'タスク削除', task_path(@task), method: :delete, data: { confirm: '削除しますか？' } %>
+  <%= pie_chart @chart_data %>
+</aside>

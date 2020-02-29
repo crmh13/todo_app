@@ -1,0 +1,24 @@
+<% provide(:title, @task.title )%>
+<h1><%= @task.title %></h1>
+<main class="task_detail">
+  <%= render 'details/detail_user_info' %>
+  <section class="task_area">
+    <ul class="alert" id="hidden">
+      <li>タスク内容を入力してください</li>
+    </ul>
+    <%= form_for @detail do |f| %>
+      <h3 class="task_form">タスク内容登録</h3>
+      <%= f.label :content %>
+      <%= f.text_field :content %>
+
+      <%= hidden_field_tag :task_id, @task.id %>
+
+      <%= f.submit %>
+    <% end %>
+
+    <%= render 'details/detail_table' %>
+  </section>
+</main>
+    <h2 class="comment_title">コメント</h2>
+    <%= render 'comments/comment' %>
+    <%= render 'comment_form' %>

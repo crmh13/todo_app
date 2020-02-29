@@ -1,0 +1,8 @@
+<%= render 'shared/user_info' %>
+<p>タスク数 ： <%= @current_user.tasks_count %></p>
+<p>未作業数 ： <%= @not_work_task %>
+<p>作業中数 ： <%= @working_task %>
+<p>完了数 ： <%= @complete_count %></p>
+<p>予定日超過タスク ： <%= @limit_over_task %></p>
+<p>達成率 ： <%= format("%.2f", achievement_rate) %>%</p>
+<%= pie_chart @chart_data, animation: { duration: 2000, easing: 'linear'} %>

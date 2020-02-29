@@ -1,0 +1,8 @@
+本日予定日のタスク
+
+<%= @name %>さん
+本日予定日のタスクがあります。ご確認ください。
+
+<% @tasks.each do |task| %>
+  <%= task.title %>（<% if task.status == 0 %>未作業<% else task.status == 1 %>作業中<% end %>）
+<% end %>

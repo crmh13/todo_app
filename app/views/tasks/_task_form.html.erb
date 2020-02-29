@@ -1,0 +1,31 @@
+<%= form_for @task do |f| %>
+<% if @task.errors.any? %>
+  <ul class="alert">
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  
+  <ul class="alert" id="hidden">
+    <li>予定日を過ぎています。</li>
+  </ul>
+  <%= f.label :scheduled_date %>
+  <%= f.date_field :scheduled_date %>
+
+  <% if current_user.email == "" || current_user.email.nil? %>
+    <p>
+      メールアドレスを登録すると、メール通知機能を使用できます。<br>
+      <%= link_to "メールアドレスを登録", edit_user_path %>
+    </p>
+  <% else %>
+    <p>
+      <%= f.check_box :send_mail %>
+      <%= f.label :send_mail, '通知メールを送信する。' %>
+    </p>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

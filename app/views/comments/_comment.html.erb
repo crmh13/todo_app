@@ -1,0 +1,10 @@
+<div id="comment">
+  <% @comments.order("created_at DESC").each do |comment| %>
+    <% break if comment.id.nil? %>
+    <p class="comment"><%= simple_format(comment.body) %></p>
+    <p class="comment_status">
+      <%= link_to "削除", comment, method: :delete, data: { confirm: '削除しますか？' }, remote: true %></td>
+      <br><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>
+    </p>
+  <% end %>
+</div>

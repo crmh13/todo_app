@@ -1,0 +1,92 @@
+// Place all the styles related to the Tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+/* table */
+
+.working {
+  font-weight: bold;
+}
+
+.detail_complete {
+  background-color: #999999;
+  text-decoration: line-through;
+}
+
+#hidden {
+  display: none;
+}
+
+.edit_detail {
+  width: 6em;
+}
+
+select{
+  font-size: inherit;
+  background: transparent;
+  border: 1px solid #9999ff;
+}
+
+.new_detail {
+  margin: 0;
+  text-align: right;
+  float: right;
+  width: 700px;
+  input[type="text"] {
+    width: 400px;
+  }
+  input[type="submit"] {
+    width: 70px;
+    display: inline-block;
+  }
+}
+
+.comment {
+  margin-top: 10px;
+  border-top: 1px solid #9999ff;
+  padding: 5px;
+}
+
+.comment_status {
+  text-align: right;
+  font-size: 14px;
+}
+
+.comment_title {
+  margin-top: 40px;
+}
+
+textarea {
+  width: 400px;
+  height: 100px;
+}
+
+.task_detail:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+
+@media screen and (max-width:1009px) {
+  .new_detail {
+    margin: 0;
+    width: 100%;
+    label {
+      display: block;
+      text-align: left;
+    }
+    input[type="text"] {
+      width: 100%;
+    }
+    input[type="submit"] {
+      text-align: center;
+      width: 90%;
+      margin: auto;
+      display: block;
+    }
+  }
+
+  textarea {
+    width: 95%;
+  }
+}

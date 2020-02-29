@@ -1,0 +1,12 @@
+  <% if logged_in? %>
+    <h1>タスク一覧</h1>
+    <aside class="user_info">
+      <%= render 'user_info_home' %>
+    </aside>
+    <section class="task_area">
+      <%= render 'task' %>
+    </section>
+  <% else %>
+    <h1>Todoアプリへようこそ</h1>
+    <p class="sign-in"><%= link_to('新規登録', new_user_path) %></p>
+  <% end %>

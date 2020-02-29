@@ -1,0 +1,16 @@
+<h2>本日予定日のタスク</h2>
+
+<p><%= @name %>さん<br>本日予定日のタスクがあります。ご確認ください。</p>
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= task.title %>（
+      <% if task.status == 0 %>
+        未作業
+      <% else task.status == 1 %>
+        作業中
+      <% end %>
+      ）
+    </li>
+  <% end %>
+</ul>

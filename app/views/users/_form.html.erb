@@ -1,0 +1,44 @@
+<%= form_for @user, url: user_path do |f| %>
+<% if @user.errors.any? %>
+  <ul class="alert">
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation, "パスワード確認" %>
+  <%= f.password_field :password_confirmation %>
+
+  <% if @user.id %>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+
+    <p>プロフィール画像</p>
+    <div class="preview">
+      <% unless @user.avatar_url.nil? %>
+        <%= image_tag(@user.avatar_url(:thumbnail), :width => 80, :height => 80) %>
+      <% end %>
+    </div>
+      <%= f.file_field :avatar %><br>
+      <%= f.check_box :remove_avatar %> 画像を削除する
+      <%= f.hidden_field :avatar_cache %>
+
+    <p>背景画像を設定する？</p>
+      <div class="preview">
+      <% unless @user.bgimage_url.nil? %>
+        <%= image_tag(@user.bgimage_url(:thumbnail), :width => 80, :height => 80) %>
+      <% end %>
+    </div>
+      <%= f.file_field :bgimage %><br>
+      <%= f.check_box :remove_bgimage %> 画像を削除する
+      <%= f.hidden_field :bgimage_cache %>
+  <% end %>
+
+  <%= f.submit data: { disable_with: '処理中…' } %>
+<% end %>

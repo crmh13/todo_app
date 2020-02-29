@@ -1,0 +1,47 @@
+<ul class="task_menu">
+  <li><%= link_to "タスクを追加する", new_task_path %></li>
+  <li><%= link_to "完了済みタスク", 'complete_task' %></li>
+</ul>
+<%= form_tag root_path, method: :get, class: "search" do %>
+  <%= check_box_tag :complete, params[:complete], @complete_check %><%= label_tag :complete, "完了済タスクを表示する" %>
+  <%= check_box_tag :no_schedule, params[:no_schedule], @limit_check %><%= label_tag :no_schedule, "予定日のないタスクを表示しない" %>
+  <%= check_box_tag :working, params[:working], @working_check %><%= label_tag :working, "作業中タスクのみ表示" %><br>
+  <%= label_tag :search, "タスク名" %> <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "検索", name: :nil %>
+<% end %>
+<table>
+<colgroup>
+<colgroup class="schedule">
+<colgroup class="status">
+<colgroup class="send-mail">
+  <tr>
+    <th>タスク名</th><th>予定日</th><th>ステータス</th><th>メール通知</th>
+  </tr>
+  <% if @tasks.any? %>
+    <% @tasks.each do |task| %>
+      <tr id="task-<%= task.id %>" class="<% if task.status == 2 %>complete<% elsif !task.scheduled_date.nil? %><% if task.scheduled_date < Date.today %>limit<% end %><% end %>">
+        <td>
+          <%= link_to task.title, task_path(task) %>
+        </td>
+        <td>
+          <%= task.scheduled_date %>
+        </td>
+        <td>
+          <% if task.status == 0 %>
+            未作業
+          <% elsif task.status == 1 %>
+            作業中
+          <% else %>
+            完了
+          <% end %>
+        </td>
+        <td>
+          <% if task.send_mail %>
+            ○
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+<%= paginate @tasks %>

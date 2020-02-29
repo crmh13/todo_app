@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+not_work:
+  content: 未作業
+  status: 0
+  task: one
+
+working:
+  content: 作業中
+  status: 1
+  task: one
+
+completion:
+  content: 完了
+  status: 2
+  task: one

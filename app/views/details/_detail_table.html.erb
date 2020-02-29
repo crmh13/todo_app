@@ -1,0 +1,30 @@
+<%= form_tag task_path, method: :get, class: "search" do %>
+  <h3 class="task_form">タスク内容検索</h3>
+  <%= check_box_tag :not_work, params[:not_work], @not_work_check %><%= label_tag :not_work, "未作業表示なし" %>
+  <%= check_box_tag :working, params[:working], @working_check %><%= label_tag :working, "作業中表示なし" %>
+  <%= check_box_tag :complete, params[:complete], @complete_check %><%= label_tag :complete, "完了表示なし" %><br>
+  <%= label_tag :search, "タスク内容" %> <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "検索", name: :nil %>
+<% end %>
+<table id="new_detail_table">
+<colgroup>
+<colgroup class="status">
+<colgroup class="delete">
+  <tr>
+    <th>タスク内容</th><th>ステータス</th><th>削除</th>
+  </tr><% @details.each do |detail| %>
+  <% if detail.id == nil %>
+    <% break %>
+  <% end %>
+    <tr id="detail-<%= detail.id %>" class="<% if detail.status == 2 %>detail_complete<% elsif detail.status == 1 %>working<% end %>">
+      <td><%= detail.content %></td>
+      <td>
+        <%= form_for detail do |f| %>
+          <%= f.select(:status, [['未作業', 0], ['作業中', 1], ['完了', 2]], :selected => detail.status, :onchange => 'this.form.submit()') %>
+        <% end %>
+      </td>
+      <td><%= link_to "×", detail, method: :delete, data: { confirm: '削除しますか？' } %></td>
+    </tr>
+<% end %>
+</table>
+<%= paginate @details %>

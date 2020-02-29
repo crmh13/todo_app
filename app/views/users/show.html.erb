@@ -1,0 +1,26 @@
+<% provide(:title, @user.name) %>
+<h1><%= @user.name %></h1>
+<p class="center">
+  <% if @user.avatar_url.nil? %>
+    <%= image_tag('profile.png', alt: '', width: 150, height: 150) %>
+  <% else %>
+    <%= image_tag(@user.avatar_url(:standard)) %>
+  <% end %>
+</p>
+<P class="center">
+<% unless @user.admin? %>
+  <%= link_to 'ユーザー情報更新', edit_user_path %>
+  <%= link_to 'ユーザー削除', user_path, method: :delete, data: { confirm: '削除しますか？' } %>
+<% end %>
+</p>
+<h2 class="center">1ヶ月以内のタスク集計</h2>
+<!--
+<%= area_chart [
+    { name: "完了数", data: @complete_data },
+    { name: "タスク数", data: @aggregate_data }
+  ] %>
+-->
+<div class="center">
+  <p>１ヶ月で登録したタスク数 ： <%= @all_task %></p>
+  <p>１ヶ月で完了したタスク数 ： <%= @complete_count %></p>
+</div>

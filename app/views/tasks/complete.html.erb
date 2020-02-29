@@ -1,0 +1,42 @@
+<% provide(:title, "完了済みタスク") %>
+  <h1><%= yield(:title) %></h1>
+  <aside class="user_info">
+    <%= render 'shared/user_info' %>
+    <p>完了数 ： <%= @tasks.count %></p>
+    <p>予定日を超過したタスク : <%= @limit_over %></p>
+    <p>予定日前に完了したタスク ： <%= @date_before %></p>
+    <p>予定日に完了したタスク ： <%= @scheduled %></p>
+    <%= pie_chart @chart_data %>
+  </aside>
+
+  <section class="task_area">
+    <%= form_tag complete_task_path, method: :get, class: "search" do %>
+      <%= check_box_tag :over, params[:over], @over_check %><%= label_tag :over, "予定日超過タスク" %>
+      <%= check_box_tag :no_schedule, params[:no_schedule], @limit_check %><%= label_tag :no_schedule, "予定日のないタスクを表示しない" %><br>
+      <%= label_tag :search, "タスク名" %> <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "検索", name: :nil %>
+    <% end %>
+    <table>
+    <colgroup>
+    <colgroup span="2" class="schedule">
+      <tr>
+        <th>タスク名</th><th>予定日</th><th>完了日</th>
+      </tr>
+      <% if @tasks.any? %>
+        <% @tasks.each do |task| %>
+          <tr id="task-<%= task.id %>">
+            <td>
+              <%= link_to task.title, task_path(task) %>
+            </td>
+            <td>
+              <%= task.scheduled_date %>
+            </td>
+            <td>
+              <%= task.completion_date %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+    <%= paginate @tasks %>
+  </section>

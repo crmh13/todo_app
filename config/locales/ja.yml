@@ -1,0 +1,15 @@
+ja:
+  attributes:
+    name:   ユーザー名
+    email:   メールアドレス
+    password:   パスワード
+    password_confirmation: 確認パスワード
+    title: タスク名
+    scheduled_date: 予定日
+    content: タスク内容
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"

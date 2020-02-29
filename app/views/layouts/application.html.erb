@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <meta http-equiv="Content-Language" content="ja">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= favicon_link_tag() %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body<% if logged_in? %><% if !current_user.bgimage_url.nil? %> style="background: url(<%= current_user.bgimage_url() %>);"<% end %><% end %>>
+    <header>
+      <div class="container_head">
+        <p class="logo"><%= link_to 'Todoアプリ', root_path %></p>
+        <div id="over">
+          <div class="fa-menu">
+            <p id="open"><%= fa_icon "bars" %></p>
+            <p id="close"><%= fa_icon "times" %></p>
+          </div>
+          <ul class="menu">
+            <% if logged_in? %>
+              <li><%= link_to 'タスク一覧', root_path %></li>
+              <li><%= link_to current_user.name, user_path %>
+              <% if current_user.admin? %>
+                <li><%= link_to 'ユーザー一覧', users_path %></li>
+              <% end %>
+              <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to 'ログイン', login_path %></li>
+            <% end %>
+            <li><%= link_to 'Todoアプリについて', about_path %></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <% unless flash.empty? %>
+      <div class="container">
+        <% flash.each do |message_type, message| %>
+          <%= content_tag(:div, message.html_safe, class: "flash-#{message_type}") %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <%= debug(params) if Rails.env.development? %>
+  </body>
+  <script>
+</html>

@@ -1,0 +1,15 @@
+<% provide(:title, 'ログイン') %>
+<h1>ログイン</h1>
+<%= form_tag login_path, method: :post do %>
+  <%= label_tag 'ユーザー名' %>
+  <%= text_field_tag :name %>
+  
+  <%= label_tag 'パスワード' %>
+  <%= password_field_tag :password %>
+
+  <%= check_box_tag :remember_me %>
+  <span>ログイン情報を記憶しますか？</span>
+
+  <%= submit_tag 'ログイン' %>
+<% end %>
+
